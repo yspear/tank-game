@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdfv2qswy3r5c"]
+
+[ext_resource type="Script" path="res://boxes.gd" id="1_dqa05"]
+[ext_resource type="Texture2D" uid="uid://ccpwasrdqkwui" path="res://scenes/Double-Wall-Cardboard-Boxes-254x254x254-5-600x600.jpg" id="2_apw5u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duill"]
+size = Vector2(40, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2aj8c"]
+size = Vector2(40, 36)
+
+[node name="Boxes" type="StaticBody2D"]
+script = ExtResource("1_dqa05")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(579, 83)
+scale = Vector2(0.0675001, 0.06)
+texture = ExtResource("2_apw5u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(579, 83)
+shape = SubResource("RectangleShape2D_duill")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(569, 75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(11, 9)
+shape = SubResource("RectangleShape2D_2aj8c")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

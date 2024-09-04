@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfw2aqfjx3ya5"]
+
+[ext_resource type="Texture2D" uid="uid://cihn53tjb5npy" path="res://assets/tank_body.png" id="1_dc2a3"]
+[ext_resource type="Script" path="res://scenes/tank.gd" id="1_i32s2"]
+[ext_resource type="PackedScene" uid="uid://cb40ubk2qgdd0" path="res://scenes/weapon.tscn" id="2_taa1j"]
+[ext_resource type="AudioStream" uid="uid://d1pvwvr3kpty5" path="res://scenes/small-explosion-103779.mp3" id="4_1hoss"]
+[ext_resource type="AudioStream" uid="uid://cdgvo06786hvd" path="res://scenes/tank-track-ratteling-197409.mp3" id="5_ru3th"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ed1i"]
+size = Vector2(24, 26)
+
+[sub_resource type="Animation" id="Animation_tkdvb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_sm6ed"]
+resource_name = "idle"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_tia6t"]
+resource_name = "move"
+length = 0.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mqttg"]
+_data = {
+"RESET": SubResource("Animation_tkdvb"),
+"idle": SubResource("Animation_sm6ed"),
+"move": SubResource("Animation_tia6t")
+}
+
+[node name="Tank" type="CharacterBody2D" node_paths=PackedStringArray("weapon")]
+script = ExtResource("1_i32s2")
+weapon = NodePath("weapon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6ed1i")
+
+[node name="body_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_dc2a3")
+hframes = 2
+
+[node name="weapon" parent="." instance=ExtResource("2_taa1j")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mqttg")
+}
+
+[node name="shoot_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1hoss")
+volume_db = 2.701
+attenuation = 1.27456
+
+[node name="tracks_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ru3th")

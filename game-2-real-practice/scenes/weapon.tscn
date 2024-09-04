@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb40ubk2qgdd0"]
+
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="1_n5wdb"]
+[ext_resource type="Texture2D" uid="uid://b0fvxi707w3kq" path="res://assets/tank_weapon.png" id="1_p46ni"]
+[ext_resource type="PackedScene" uid="uid://bhtbdus7bbcba" path="res://scenes/Bullet.tscn" id="2_7kohc"]
+[ext_resource type="Script" path="res://scenes/weapon_realoding.gd" id="4_eflwc"]
+
+[node name="weapon" type="Node2D"]
+script = ExtResource("1_n5wdb")
+BULLET_SCENE = ExtResource("2_7kohc")
+
+[node name="Weapon_sprite" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+texture = ExtResource("1_p46ni")
+
+[node name="weapon_realoding" type="Timer" parent="."]
+script = ExtResource("4_eflwc")
+
+[connection signal="timeout" from="weapon_realoding" to="." method="_on_weapon_realoding_timeout"]

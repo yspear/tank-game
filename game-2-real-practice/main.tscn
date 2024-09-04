@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcegqi873rg8f"]
+
+[ext_resource type="PackedScene" uid="uid://bfw2aqfjx3ya5" path="res://scenes/tank.tscn" id="1_lobt7"]
+[ext_resource type="PackedScene" uid="uid://cdfv2qswy3r5c" path="res://scenes/boxes.tscn" id="2_m6ceh"]
+
+[node name="Node" type="Node"]
+
+[node name="Tank" parent="." instance=ExtResource("1_lobt7")]
+position = Vector2(242, 156)
+
+[node name="Boxes" parent="." instance=ExtResource("2_m6ceh")]
